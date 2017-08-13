@@ -30,16 +30,16 @@ Usage: `venv <cmd> [options]`
 
 ### ngenv
 
-Replaces a template Angular CLI enviornment file with values from `process.env`. Use this command in your build pipeline to poke values from the build-time environment into your application's environment. 
+Replaces a template Angular CLI environment file with values from `process.env`. Use this command in your build pipeline to poke values from the build-time environment into your application's environment. 
 
 ### Options:
 
 ```
 -f, --configPath      the cli configuration to use [default: ".angular-cli.json"]
 -a, --appIndex        the index of the configuration's apps to use [default: 0]
--e, --env             which enviornment to process [default: "dev"]
+-e, --env             which environment to process [default: "dev"]
 -r, --rename          use a new name for the processed environment file
--s, --save            save enviornment files before processing
+-s, --save            save environment files before processing
 --prod                use the prod environment, equivalent to --e prod
 -h, --help            show help
 -v, --version         current version

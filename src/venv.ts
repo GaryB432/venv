@@ -23,7 +23,7 @@ const argv = yargs
   .option('e', {
     alias: 'env',
     default: 'dev',
-    description: 'which enviornment to process',
+    description: 'which environment to process',
     nargs: 1,
     type: 'string',
   })
@@ -36,7 +36,7 @@ const argv = yargs
   .option('s', {
     alias: 'save',
     default: true,
-    description: 'save enviornment files before processing',
+    description: 'save environment files before processing',
     type: 'boolean',
   })
   .option('prod', {
