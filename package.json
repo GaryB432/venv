@@ -1,6 +1,6 @@
 {
   "name": "venv",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Use build-time environment variables in your Angular CLI project",
   "license": "MIT",
   "repository": {
@@ -16,14 +16,14 @@
   "files": [
     "lib"
   ],
-  "bin": "lib/cli.js",
+  "bin": "lib/venv.js",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
     "build": "tsc --pretty",
     "test": "jest",
@@ -34,7 +34,8 @@
   "dependencies": {
     "ejs": "^2.5.7",
     "fs-extra": "^4.0.1",
-    "md5": "^2.2.1"
+    "md5": "^2.2.1",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "@types/ejs": "^2.3.33",

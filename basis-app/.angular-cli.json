@@ -1,0 +1,16 @@
+{
+  "project": {
+    "name": "basis-app"
+  },
+  "apps": [
+    {
+      "root": "fixtures",
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "demo": "environments/environment.demo.ts",
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ]
+}

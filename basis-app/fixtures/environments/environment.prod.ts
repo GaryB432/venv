@@ -1,0 +1,16 @@
+export const environment = {
+  production: true,
+  HOMEDRIVE: '<%= env.HOMEDRIVE %>',
+  HOMEPATH: '<%= env.HOMEPATH %>',
+  LOCALAPPDATA: '<%= env.LOCALAPPDATA %>',
+  LOGONSERVER: '<%= env.LOGONSERVER %>',
+  NUMBER_OF_PROCESSORS: '<%= env.NUMBER_OF_PROCESSORS %>',
+  OneDrive: '<%= env.OneDrive %>',
+  OS: '<%= env.OS %>',
+  Path: '<%= env.Path %>',
+  PATHEXT: '<%= env.PATHEXT %>',
+  PROCESSOR_ARCHITECTURE: '<%= env.PROCESSOR_ARCHITECTURE %>',
+  PROCESSOR_IDENTIFIER: '<%= env.PROCESSOR_IDENTIFIER %>',
+  PROCESSOR_LEVEL: '<%= env.PROCESSOR_LEVEL %>',
+  PROCESSOR_REVISION: '<%= env.PROCESSOR_REVISION %>',
+};
