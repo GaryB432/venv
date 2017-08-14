@@ -4,6 +4,8 @@ Make build-time environment variables available to your Angular CLI application.
 
 Venv uses [EJS](https://ejs.co) to transform your Angular CLI project's environment file using Node's `process.env` map. 
 
+> N.B. The default operation will __overwrite__ your environment file. Be sure to run this during a build step and that the change is not accidentally committed.
+
 ## Installation
 
 __Local__ (in your project's working directory):
@@ -25,6 +27,11 @@ yarn global add venv
 ## CLI Usage
 
 Usage: `venv <cmd> [options]`
+
+Your build steps could be
+
+> npm install venv -g
+> venv ngenv --boot
 
 ### Commands:
 
