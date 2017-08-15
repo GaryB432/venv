@@ -8,17 +8,17 @@ import { readArguments } from './argument-parser';
 
 const yargsVar = yargs
   .command(
-  'process',
-  'replace template file with environment variables',
-  y => {
-    return y.option('t', {
-      alias: 'templatePath',
-      required: true,
-      nargs: 1,
-      describe: 'the template file',
-    });
-  },
-  replaceWithTemplate
+    'process',
+    'replace template file with environment variables',
+    y => {
+      return y.option('t', {
+        alias: 'templatePath',
+        describe: 'the template file',
+        nargs: 1,
+        required: true,
+      });
+    },
+    replaceWithTemplate
   )
   .demandCommand(1)
   .option('h', {
@@ -47,4 +47,4 @@ function replaceWithTemplate(yav: yargs.Arguments) {
   );
 }
 
-console.log(yargsVar.$0);
+console.log(yargsVar.$0); // tslint:disable-line
