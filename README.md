@@ -1,7 +1,6 @@
 # venv
 
 [![Build Status](https://travis-ci.org/GaryB432/venv.svg?branch=master)](https://travis-ci.org/GaryB432/venv)
-
 [![npm version](https://badge.fury.io/js/venv.svg)](https://badge.fury.io/js/venv)
 
 Make build-time environment variables available to your application.
