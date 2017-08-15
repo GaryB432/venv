@@ -4,24 +4,22 @@ Make build-time environment variables available to your application.
 
 Venv uses [EJS](https://ejs.co) to transform a template file using Node's `process.env` map.
 
-The process command will 
-
 ## CLI Usage
 
 Usage: `venv <cmd> [options]`
 
 Your build steps could be
 
-> npm install venv -g
-> venv process -t src\environments\environment.prod.ts
+- npm install venv -g
+- venv process -t src\environments\environment.prod.ts
 
 ### Commands:
 
 ### process
 
  - append `.template` to the filename passed as argument `t`
- - transform that file using `process.env`
- - save the result with to the original name (the filename supplied on the command line) 
+ - transform that file using `process.env` as the context
+ - save the result to the original name supplied on the command line
 
 ### Options:
 
