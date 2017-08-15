@@ -13,8 +13,8 @@ Usage: `venv <cmd> [options]`
 
 Your build steps could be
 
-- npm install venv -g
-- venv process -t src\environments\environment.prod.ts
+  npm install venv -g
+  venv process -t src\environments\environment.prod.ts
 
 ### Commands:
 
