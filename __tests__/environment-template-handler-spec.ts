@@ -2,13 +2,13 @@ import { EnvironmentTemplateHandler } from '../src/environment-template-handler'
 
 let sut: EnvironmentTemplateHandler;
 
-const templatePath = './__tests__/fixtures/environment.xts';
+const templatePath = './__tests__/fixture.txt.template';
 
 const mockProcess = {
   env: {
     USERNAME: 'friend',
     bad: '}} console.log("no!");',
-    SystemRoot: 'yep',
+    planet: 'world',
   },
 };
 
@@ -34,7 +34,7 @@ test('renders env content', () => {
 test('renders from file async', done => {
   sut.renderEnvContextTemplateFile(templatePath, mockProcess, (e, actual) => {
     expect(e).toBeNull();
-    expect(actual).toContain('yep');
+    expect(actual).toContain('world');
     done();
   });
 });
@@ -42,5 +42,5 @@ test('renders from file async', done => {
 test('renders from file sync', () => {
   expect(
     sut.renderEnvContextTemplateFileSync(templatePath, mockProcess)
-  ).toContain("SystemRoot: 'yep'");
+  ).toContain('Hello world');
 });

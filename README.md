@@ -1,28 +1,10 @@
 # venv
 
-Make build-time environment variables available to your Angular CLI application.
+Make build-time environment variables available to your application.
 
-Venv uses [EJS](https://ejs.co) to transform your Angular CLI project's environment file using Node's `process.env` map. 
+Venv uses [EJS](https://ejs.co) to transform a template file using Node's `process.env` map.
 
-> N.B. The default operation will __overwrite__ your environment file. Be sure to run this during a build step and that the change is not accidentally committed.
-
-## Installation
-
-__Local__ (in your project's working directory):
-
-```sh
-npm install venv --save-dev
-# or
-yarn add venv --dev
-```
-
-__Global__:
-
-```sh
-npm install venv -g
-# or
-yarn global add venv
-```
+The process command will 
 
 ## CLI Usage
 
@@ -31,47 +13,51 @@ Usage: `venv <cmd> [options]`
 Your build steps could be
 
 > npm install venv -g
-> venv ngenv --boot
+> venv process -t src\environments\environment.prod.ts
 
 ### Commands:
 
-### ngenv
+### process
 
-Replaces a template Angular CLI environment file with values from `process.env`. Use this command in your build pipeline to poke values from the build-time environment into your application's environment. 
+ - append `.template` to the filename passed as argument `t`
+ - transform that file using `process.env`
+ - save the result with to the original name (the filename supplied on the command line) 
 
 ### Options:
 
 ```
--f, --configPath      the cli configuration to use [default: ".angular-cli.json"]
--a, --appIndex        the index of the configuration's apps to use [default: 0]
--e, --env             which environment to process [default: "dev"]
--r, --rename          use a new name for the processed environment file
--s, --save            save environment files before processing
---prod                use the prod environment, equivalent to --e prod
+-t, --templatePath    the path to the template file
 -h, --help            show help
 -v, --version         current version
 ```
 
 #### Example
 
-> venv ngenv --prod
+> venv process --templatePath src\assets\env.js
 
-__environment.prod.ts__:
+__src\assets\env.js.template__:
 ```javascript
-export const environment: any = {
-  COOL_API_URL: 'https://cool.example.net/api',
-  BUILD_BUILDNUMBER: '<%= env.BUILD_BUILDNUMBER %>',
-  production: true,
-};
+(function (window) {
+  window.__env = window.__env || {};
+  window.__env.BUILD_BUILDNUMBER = '<%= env.BUILD_BUILDNUMBER %>';
+}(this));
 ```
-Asuming your `process.env[BUILD_BUILDNUMBER]` value is as shown on venv's execution, the contents of this file (environment.prod.ts) would get replaced with the following.
 
-```javascript
-export const environment: any = {
-  COOL_API_URL: 'https://cool.example.net/api',
-  BUILD_BUILDNUMBER: '20190402.4',
-  production: true,
-};
+```html
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="assets/env.js"></script>
+</head>
+
+<body>
+  <script>
+    console.log('__env.BUILD_BUILDNUMBER');
+  </script>
+</body>
+
+</html>
 ```
 
 ## Exit Codes

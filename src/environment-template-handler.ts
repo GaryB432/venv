@@ -29,11 +29,11 @@ const ef8 = {
 };
 
 export interface TemplateHandlerOptions {
-  onPreRender: (path: string, data: string) => void;
+  onPreRender?: (path: string, data: string) => void;
 }
 
 export class EnvironmentTemplateHandler {
-  constructor(private options: TemplateHandlerOptions) {}
+  constructor(private options?: TemplateHandlerOptions) {}
   public renderEnvContext(template: string, envContainer: ProcessLike): string {
     const compiled = ejs.compile(template);
     const result = compiled(preprocess(envContainer));
@@ -50,10 +50,10 @@ export class EnvironmentTemplateHandler {
         callback(err);
       } else {
         const template = templatBuffer.toString();
-        callback(null, this.renderEnvContext(template, envContainer));
-        if (this.options.onPreRender) {
+        if (this.options && this.options.onPreRender) {
           this.options.onPreRender(path, template);
         }
+        callback(null, this.renderEnvContext(template, envContainer));
       }
     });
   }
@@ -63,7 +63,7 @@ export class EnvironmentTemplateHandler {
     envContainer: ProcessLike
   ): string {
     const template = fs.readFileSync(path, ef8);
-    if (this.options.onPreRender) {
+    if (this.options && this.options.onPreRender) {
       this.options.onPreRender(path, template);
     }
     return this.renderEnvContext(template, envContainer);
