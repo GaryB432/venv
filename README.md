@@ -38,7 +38,7 @@ venv process -t src\environments\environment.prod.ts
 
 > venv process --templatePath src\assets\env.js
 
-__src\assets\env.js.template__:
+__assets\env.js.template__:
 ```javascript
 (function (window) {
   window.__env = window.__env || {};
@@ -56,7 +56,7 @@ __src\assets\env.js.template__:
 
 <body>
   <script>
-    console.log('__env.BUILD_BUILDNUMBER');
+    console.log(__env.BUILD_BUILDNUMBER);
   </script>
 </body>
 
