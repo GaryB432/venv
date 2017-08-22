@@ -11,7 +11,7 @@ Venv uses [EJS](https://ejs.co) to transform a template file using Node's `proce
 
 Usage: `venv <cmd> [options]`
 
-Your build steps could be
+Your build or deploy pipeline could include
 
 ```
 npm install venv -g
@@ -22,9 +22,9 @@ venv process -t src\environments\environment.prod.ts
 
 ### process
 
- - append `.template` to the filename passed as argument `t`
- - transform that file using `process.env` as the context
- - save the result to the original name supplied on the command line
+ - appends `.template` to the filename passed as argument `t`
+ - transforms that file using `process.env` as the context
+ - saves the result to the original name supplied on the command line
 
 ### Options:
 
@@ -36,7 +36,7 @@ venv process -t src\environments\environment.prod.ts
 
 #### Example
 
-> venv process --templatePath src\assets\env.js
+> venv process --templatePath assets\env.js
 
 __assets\env.js.template__:
 ```javascript

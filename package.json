@@ -1,6 +1,6 @@
 {
   "name": "venv",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Use build-time environment variables in your Angular CLI project",
   "license": "MIT",
   "repository": {
@@ -34,7 +34,6 @@
   "dependencies": {
     "ejs": "^2.5.7",
     "fs-extra": "^4.0.1",
-    "md5": "^2.2.1",
     "yargs": "^8.0.2"
   },
   "devDependencies": {

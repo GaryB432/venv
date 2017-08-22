@@ -1,6 +1,14 @@
 import * as ejs from 'ejs';
 import * as fs from 'fs-extra';
 
+export interface ProcessLike {
+  env: NodeJS.ProcessEnv;
+}
+
+const ef8 = {
+  encoding: 'utf-8',
+};
+
 function preprocess(
   envContainer: ProcessLike,
   predicate: (s: string) => string = s => s
@@ -20,42 +28,46 @@ function preprocess(
   return result;
 }
 
-export interface ProcessLike {
-  env: NodeJS.ProcessEnv;
-}
-
-const ef8 = {
-  encoding: 'utf-8',
-};
-
-export interface TemplateHandlerOptions {
-  onPreRender?: (path: string, data: string) => void;
-}
-
 export class EnvironmentTemplateHandler {
-  constructor(private options?: TemplateHandlerOptions) {}
-  public renderEnvContext(template: string, envContainer: ProcessLike): string {
-    const compiled = ejs.compile(template);
-    const result = compiled(preprocess(envContainer));
-    return result;
-  }
-
+  public renderEnvContextTemplateFile(
+    path: string,
+    envContainer: ProcessLike
+  ): Promise<string>;
   public renderEnvContextTemplateFile(
     path: string,
     envContainer: ProcessLike,
     callback: (err: Error | null, data?: string) => void
-  ): void {
-    fs.readFile(path, ef8, (err, templatBuffer) => {
-      if (err) {
-        callback(err);
-      } else {
-        const template = templatBuffer.toString();
-        if (this.options && this.options.onPreRender) {
-          this.options.onPreRender(path, template);
+  ): void;
+  public renderEnvContextTemplateFile(
+    path: string,
+    envContainer: ProcessLike,
+    callback?: (err: Error | null, data?: string) => void
+  ): void | Promise<string> {
+    if (callback) {
+      fs.readFile(path, ef8, (err, templatBuffer) => {
+        if (err) {
+          callback(err);
+        } else {
+          const template = templatBuffer.toString();
+          callback(
+            null,
+            EnvironmentTemplateHandler.renderEnvContext(template, envContainer)
+          );
         }
-        callback(null, this.renderEnvContext(template, envContainer));
-      }
-    });
+      });
+    } else {
+      return fs
+        .readFile(path, ef8)
+        .then(template => {
+          return EnvironmentTemplateHandler.renderEnvContext(
+            template,
+            envContainer
+          );
+        })
+        .catch(e => {
+          throw e;
+        });
+    }
   }
 
   public renderEnvContextTemplateFileSync(
@@ -63,9 +75,15 @@ export class EnvironmentTemplateHandler {
     envContainer: ProcessLike
   ): string {
     const template = fs.readFileSync(path, ef8);
-    if (this.options && this.options.onPreRender) {
-      this.options.onPreRender(path, template);
-    }
-    return this.renderEnvContext(template, envContainer);
+    return EnvironmentTemplateHandler.renderEnvContext(template, envContainer);
+  }
+
+  public static renderEnvContext(
+    template: string,
+    envContainer: ProcessLike
+  ): string {
+    const compiled = ejs.compile(template);
+    const result = compiled(preprocess(envContainer));
+    return result;
   }
 }

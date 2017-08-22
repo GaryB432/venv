@@ -6,7 +6,7 @@ import { EnvironmentTemplateHandler } from './environment-template-handler';
 
 import { readArguments } from './argument-parser';
 
-const yargsVar = yargs
+yargs // tslint:disable-line
   .command(
     'process',
     'replace template file with environment variables',
@@ -20,6 +20,10 @@ const yargsVar = yargs
     },
     replaceWithTemplate
   )
+  .example(
+    '$0 process -t foo.js',
+    'replace the specified file with its processed .template'
+  )
   .demandCommand(1)
   .option('h', {
     alias: 'help',
@@ -31,20 +35,15 @@ const yargsVar = yargs
   .describe('v', 'show version information')
   .help().argv;
 
-function replaceWithTemplate(yav: yargs.Arguments) {
+async function replaceWithTemplate(yav: yargs.Arguments): Promise<void> {
   const opts = readArguments(yav);
   const eth = new EnvironmentTemplateHandler();
-  eth.renderEnvContextTemplateFile(
-    opts.filePath.concat('.template'),
-    process,
-    (err, data) => {
-      if (err) {
-        throw err;
-      }
-      fs.writeFileSync(opts.filePath, data);
-      console.log(opts.filePath); // tslint:disable-line
-    }
-  );
+  eth
+    .renderEnvContextTemplateFile(opts.filePath.concat('.template'), process)
+    .then(data => {
+      fs.writeFile(opts.filePath, data).then(() => console.log(opts.filePath)); // tslint:disable-line
+    })
+    .catch(e => {
+      console.log(e.message); // tslint:disable-line
+    });
 }
-
-console.log(yargsVar.$0); // tslint:disable-line
