@@ -1,5 +1,6 @@
 # venv
 
+[![VSTS Extension](https://vsmarketplacebadge.apphb.com/version/garybortosky.venvextension.svg)](https://marketplace.visualstudio.com/items?itemName=garybortosky.venvextension)
 [![Build Status](https://travis-ci.org/GaryB432/venv.svg?branch=master)](https://travis-ci.org/GaryB432/venv)
 [![npm version](https://badge.fury.io/js/venv.svg)](https://badge.fury.io/js/venv)
 
